@@ -4,14 +4,25 @@ import { useMemo } from 'react'
 import { themeSettings } from './theme'
 import { CssBaseline } from '@mui/material'
 import { RootState } from './app/store'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import Dashboard from './pages/dashboard'
+import Layout from './components/Layout'
 
 function App() {
   const mode = useSelector((state: RootState) => state.theme.mode)
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode])
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
+        </Routes>
+      </ThemeProvider>
+    </BrowserRouter>
   )
 }
 
