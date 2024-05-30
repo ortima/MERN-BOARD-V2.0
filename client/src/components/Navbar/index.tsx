@@ -1,30 +1,21 @@
 import { useDispatch } from 'react-redux'
-import {
-  AppBar,
-  Box,
-  IconButton,
-  InputBase,
-  Toolbar,
-  useTheme,
-} from '@mui/material'
+import { AppBar, IconButton, InputBase, Toolbar, useTheme } from '@mui/material'
 import { GridMenuIcon, GridSearchIcon } from '@mui/x-data-grid'
-import styled from '@emotion/styled'
 import { setMode } from '../../slices/themeSlice'
 import {
   DarkModeOutlined,
   LightModeOutlined,
   Settings,
 } from '@mui/icons-material'
+import { FlexBeetween } from '../styled/flexBetween'
 
-const Navbar = () => {
+interface NavbarProps {
+  isSidebarOpen: boolean
+  setIsSidebarOpen: (value: boolean) => void
+}
+const Navbar: React.FC<NavbarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch()
   const theme = useTheme()
-
-  const FlexBeetween = styled(Box)({
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  })
 
   return (
     <AppBar sx={{ position: 'static', background: 'none', boxShadow: 'none' }}>
@@ -32,9 +23,11 @@ const Navbar = () => {
         {/* LEFT SIDE */}
         <FlexBeetween>
           <FlexBeetween>
-            <IconButton onClick={() => console.log('open sidebar')}>
-              <GridMenuIcon />
-            </IconButton>
+            {!isSidebarOpen && (
+              <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+                <GridMenuIcon />
+              </IconButton>
+            )}
           </FlexBeetween>
           <FlexBeetween
             bgcolor={theme.palette.background.paper}

@@ -95,7 +95,7 @@ export const themeSettings = (mode: PaletteMode) => {
             },
             secondary: {
               ...tokensDark.secondary,
-              main: tokensDark.secondary[300],
+              main: tokensDark.secondary[500],
             },
             neutral: {
               ...tokensDark.grey,
