@@ -7,6 +7,7 @@ import { RootState } from './app/store'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Dashboard from './pages/dashboard'
 import Layout from './components/Layout'
+import SignUp from './pages/(auth)/SignUp'
 
 function App() {
   const mode = useSelector((state: RootState) => state.theme.mode)
@@ -20,6 +21,7 @@ function App() {
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route path="/dashboard" element={<Dashboard />} />
           </Route>
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
       </ThemeProvider>
     </BrowserRouter>
