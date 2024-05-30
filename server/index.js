@@ -10,6 +10,7 @@ import clientRoutes from './routes/clientRoutes.js'
 import generalRoutes from './routes/generalRoutes.js'
 import managementRoutes from './routes/managementRoutes.js'
 import salesRoutes from './routes/salesRoutes.js'
+import authRoutes from './routes/auth.js'
 
 dotenv.config()
 const app = express()
@@ -25,6 +26,7 @@ app.use('client', clientRoutes)
 app.use('general', generalRoutes)
 app.use('management', managementRoutes)
 app.use('sales', salesRoutes)
+app.use('/api/auth', authRoutes)
 
 const PORT = process.env.PORT || 5000
 mongoose

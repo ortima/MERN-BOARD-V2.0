@@ -9,7 +9,6 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
-  easing,
   useTheme,
 } from '@mui/material'
 import { useEffect, useState } from 'react'
