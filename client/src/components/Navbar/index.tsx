@@ -18,7 +18,13 @@ const Navbar: React.FC<NavbarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const theme = useTheme()
 
   return (
-    <AppBar sx={{ position: 'static', background: 'none', boxShadow: 'none' }}>
+    <AppBar
+      sx={{
+        position: 'static',
+        background: 'none',
+        boxShadow: 'none',
+        borderBottom: '5px',
+      }}>
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         {/* LEFT SIDE */}
         <FlexBeetween>
@@ -45,13 +51,22 @@ const Navbar: React.FC<NavbarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
         <FlexBeetween>
           <IconButton onClick={() => dispatch(setMode())}>
             {theme.palette.mode === 'light' ? (
-              <LightModeOutlined sx={{ fontSize: '25px' }} />
+              <LightModeOutlined
+                htmlColor={theme.palette.primary.main}
+                sx={{ fontSize: '25px' }}
+              />
             ) : (
-              <DarkModeOutlined sx={{ fontSize: '25px' }} />
+              <DarkModeOutlined
+                htmlColor={theme.palette.primary.main}
+                sx={{ fontSize: '25px' }}
+              />
             )}
           </IconButton>
           <IconButton>
-            <Settings sx={{ fontSize: '25px' }} />
+            <Settings
+              htmlColor={theme.palette.primary.main}
+              sx={{ fontSize: '25px' }}
+            />
           </IconButton>
         </FlexBeetween>
       </Toolbar>

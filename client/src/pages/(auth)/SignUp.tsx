@@ -44,19 +44,19 @@ export default function SignUp() {
   }
 
   return (
-    <Box
-      bgcolor={
-        theme.palette.mode === 'dark'
-          ? theme.palette.background.default
-          : theme.palette.grey[300]
-      }
-      sx={{ height: '100%' }}>
+    <Box sx={{ height: '100%' }}>
       <Box display={'flex'} justifyContent={'flex-end'}>
         <IconButton onClick={() => dispatch(setMode())}>
           {theme.palette.mode === 'light' ? (
-            <LightModeOutlined sx={{ fontSize: '25px' }} />
+            <LightModeOutlined
+              htmlColor={theme.palette.primary.light}
+              sx={{ fontSize: '25px' }}
+            />
           ) : (
-            <DarkModeOutlined sx={{ fontSize: '25px' }} />
+            <DarkModeOutlined
+              htmlColor={theme.palette.primary.light}
+              sx={{ fontSize: '25px' }}
+            />
           )}
         </IconButton>
       </Box>
@@ -147,9 +147,10 @@ export default function SignUp() {
               sx={{
                 mt: 3,
                 mb: 2,
-                backgroundColor: theme.palette.primary.main,
+                color: 'white',
+                backgroundColor: theme.palette.action.selected,
                 '&:hover': {
-                  backgroundColor: theme.palette.divider,
+                  backgroundColor: theme.palette.action.selected,
                 },
               }}>
               Sign Up

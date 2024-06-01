@@ -18,7 +18,6 @@ import {
   AdminPanelSettingsOutlined,
   CalendarMonthOutlined,
   ChevronLeft,
-  ChevronRightOutlined,
   Groups2Outlined,
   HomeOutlined,
   PieChartOutline,
@@ -118,17 +117,16 @@ const SideBar: React.FC<SidebarProps> = ({
           sx={theme => ({
             width: '250px',
             '& .MuiDrawer-paper': {
-              color: theme.palette.primary.contrastText,
               backgroundColor: theme.palette.background.default,
               boxSizing: 'border-box',
               borderWidth: isNonMobile ? '2px' : '4px',
-              borderColor: theme.palette.grey[600],
+              borderColor: theme.palette.divider,
               width: '250px',
             },
           })}>
           <Box width="100%">
             <Box sx={{ m: '1rem 0 1rem 3rem' }}>
-              <FlexBeetween color={theme.palette.secondary.main}>
+              <FlexBeetween color={theme.palette.text.primary}>
                 <Box
                   sx={{
                     display: 'flex',
@@ -153,6 +151,7 @@ const SideBar: React.FC<SidebarProps> = ({
                     <Box key={text}>
                       <Divider />
                       <Typography
+                        color={theme.palette.text.primary}
                         sx={{ m: '0.5rem 0 0.5rem 3rem', fontWeight: 600 }}>
                         {text}
                       </Typography>
@@ -163,18 +162,20 @@ const SideBar: React.FC<SidebarProps> = ({
                 const lcText = text.toLowerCase()
 
                 return (
-                  <ListItem key={text} disablePadding>
+                  <ListItem key={text} disableGutters>
                     <ListItemButton
                       sx={{
+                        borderRadius: '5px',
                         py: '0.3rem',
+                        mx: '1rem',
                         backgroundColor:
                           lcText === active
-                            ? theme.palette.secondary.main
+                            ? theme.palette.action.selected
                             : 'transparent',
                         color:
                           active === lcText
-                            ? theme.palette.primary.main
-                            : theme.palette.primary.contrastText,
+                            ? theme.palette.common.white
+                            : theme.palette.action.disabled,
                       }}
                       onClick={() => {
                         navigate(`/${lcText}`)
@@ -182,18 +183,14 @@ const SideBar: React.FC<SidebarProps> = ({
                       }}>
                       <ListItemIcon
                         sx={{
-                          ml: '2rem',
                           color:
                             lcText === active
-                              ? theme.palette.primary.main
-                              : theme.palette.primary.contrastText,
+                              ? theme.palette.common.white
+                              : theme.palette.action.disabled,
                         }}>
                         {icon}
                       </ListItemIcon>
                       <ListItemText primary={text} />
-                      {active === lcText && (
-                        <ChevronRightOutlined sx={{ ml: 'auto' }} />
-                      )}
                     </ListItemButton>
                   </ListItem>
                 )

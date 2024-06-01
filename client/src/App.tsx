@@ -1,17 +1,17 @@
 import { useSelector } from 'react-redux'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useMemo } from 'react'
-import { themeSettings } from './theme'
 import { CssBaseline } from '@mui/material'
 import { RootState } from './app/store'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Dashboard from './pages/dashboard'
 import Layout from './components/Layout'
 import SignUp from './pages/(auth)/SignUp'
+import getDesignTokens from './theme/theme'
 
 function App() {
   const mode = useSelector((state: RootState) => state.theme.mode)
-  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode])
+  const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode])
 
   return (
     <BrowserRouter>
