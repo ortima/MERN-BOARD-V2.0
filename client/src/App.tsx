@@ -12,6 +12,7 @@ import SignUp from './pages/(auth)/SignUp'
 function App() {
   const mode = useSelector((state: RootState) => state.theme.mode)
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode])
+
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
