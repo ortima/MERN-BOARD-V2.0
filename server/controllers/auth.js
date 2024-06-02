@@ -1,9 +1,34 @@
 import User from '../models/User.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import { validationResult, body } from 'express-validator'
 
 // SIGNUP USER
 export const createUser = async (req, res, next) => {
+  const validationPromises = [
+    body('name')
+      .isString()
+      .withMessage('Name must be a string')
+      .matches(/^[a-zA-Z]+$/)
+      .withMessage('Name must contain only letters'),
+    ,
+    body('email').isEmail().withMessage('Invalid email'),
+    body('password')
+      .isLength({ min: 6 })
+      .withMessage('Password must be at least 6 characters long')
+      .matches(/^(?=.*[a-zA-Z])(?=.*\d).{6,}$/)
+      .withMessage('Password must contain both letters and numbers'),
+  ]
+
+  await Promise.all(
+    validationPromises.map(validationPromise => validationPromise.run(req)),
+  )
+
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() })
+  }
+
   try {
     const user = await User.findOne({ email: req.body.email })
     if (user) {

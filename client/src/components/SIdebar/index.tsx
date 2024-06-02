@@ -125,30 +125,24 @@ const SideBar: React.FC<SidebarProps> = ({
             },
           })}>
           <Box width="100%">
-            <Box sx={{ m: '1rem 0 1rem 3rem' }}>
+            <Box margin="1rem">
               <FlexBeetween color={theme.palette.text.primary}>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <Typography variant="h4" fontWeight={700}>
-                    ortima BOARD
-                  </Typography>
-                  <IconButton
-                    sx={{ ml: '1rem' }}
-                    onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-                    <ChevronLeft />
-                  </IconButton>
-                </Box>
+                <Typography
+                  sx={{ flexGrow: 1, textAlign: 'center' }}
+                  variant="h4"
+                  fontWeight={700}>
+                  ortima
+                </Typography>
+                <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+                  <ChevronLeft htmlColor={theme.palette.text.primary} />
+                </IconButton>
               </FlexBeetween>
             </Box>
             <List>
               {NavItems.map(({ text, icon }) => {
                 if (!icon) {
                   return (
-                    <Box key={text}>
+                    <Box key={text} sx={{ my: '0.3rem' }}>
                       <Divider />
                       <Typography
                         color={theme.palette.text.primary}
@@ -162,12 +156,21 @@ const SideBar: React.FC<SidebarProps> = ({
                 const lcText = text.toLowerCase()
 
                 return (
-                  <ListItem key={text} disableGutters>
+                  <ListItem
+                    sx={{
+                      p: 0,
+                      my: '0.2rem',
+                    }}
+                    key={text}
+                    disableGutters>
                     <ListItemButton
                       sx={{
+                        py: '0.2rem',
                         borderRadius: '5px',
-                        py: '0.3rem',
                         mx: '1rem',
+                        '&:hover': {
+                          backgroundColor: theme.palette.action.hover,
+                        },
                         backgroundColor:
                           lcText === active
                             ? theme.palette.action.selected

@@ -12,35 +12,39 @@ import Container from '@mui/material/Container'
 import LoadingButton from '@mui/lab/LoadingButton'
 import { IconButton, useTheme } from '@mui/material'
 import { DarkModeOutlined, LightModeOutlined } from '@mui/icons-material'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setMode } from '../../slices/themeSlice'
-
-function Copyright(props: any) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}>
-      {'Copyright © '}
-      ortima MERN
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  )
-}
+import { AppDispatch, RootState } from '../../app/store'
+import {
+  RegisterUserPayload,
+  registerUser,
+} from '../../app/actions/authActions'
+import { useNavigate } from 'react-router-dom'
 
 export default function SignUp() {
-  const dispatch = useDispatch()
+  const { loading, userInfo, error, success } = useSelector(
+    (state: RootState) => state.auth,
+  )
+  const dispatch: AppDispatch = useDispatch()
   const theme = useTheme()
 
+  const navigate = useNavigate()
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    })
+    const userData: RegisterUserPayload = {
+      name: data.get('firstName') as string,
+      email: data.get('email') as string,
+      password: data.get('password') as string,
+    }
+    if (userData.name && userData.email && userData.password) {
+      dispatch(registerUser(userData))
+      if (success) {
+        navigate('/dashboard')
+      }
+    } else {
+      console.error(error)
+    }
   }
 
   return (
@@ -91,6 +95,7 @@ export default function SignUp() {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  disabled={loading}
                   autoComplete="given-name"
                   name="firstName"
                   required
@@ -102,6 +107,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  disabled={loading}
                   required
                   fullWidth
                   id="lastName"
@@ -112,6 +118,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  disabled={loading}
                   required
                   fullWidth
                   id="email"
@@ -122,6 +129,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  disabled={loading}
                   required
                   fullWidth
                   name="password"
@@ -141,6 +149,7 @@ export default function SignUp() {
               </Grid>
             </Grid>
             <LoadingButton
+              loading={loading}
               type="submit"
               fullWidth
               variant="contained"
@@ -167,5 +176,19 @@ export default function SignUp() {
         </Box>
       </Container>
     </Box>
+  )
+}
+function Copyright(props: any) {
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}>
+      {'Copyright © '}
+      ortima MERN
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
   )
 }
